@@ -1,0 +1,7 @@
+# For educational and research purposes only. Not investment advice. Research/educational track record of a quantitative model. Not investment advice. Not a SEBI-registered research analyst or adviser. Past performance does not guarantee future returns.
+# These long-signal analyses are model outputs shown for testing and educational purposes only. Not investment advice, not a recommendation to buy or sell.
+asset_regime,conviction,entry_asof,entry_kind,entry_price,entry_session,exit_kind,exit_price,exit_price_carried,exit_reason,exit_session,gross,hold_sessions,intent,net,ticker
+recovery,0.661292,2026-09-30,close,719.400024,2026-10-01,close,726.0,False,AVOID,2026-10-05,0.009174,1,INITIATE,0.006674,CHOICEIN.NS
+recovery,0.580271,2026-09-30,close,26840.0,2026-10-01,close,25580.0,False,AVOID,2026-10-08,-0.046945,4,INITIATE,-0.049445,ABBOTINDIA.NS
+accumulation,0.596388,2026-09-30,close,399.299988,2026-10-01,close,378.649994,False,AVOID,2026-10-08,-0.051715,4,INITIATE,-0.054215,CHAMBLFERT.NS
+recovery,0.591473,2026-09-30,close,1930.0,2026-10-01,close,1771.199951,False,AVOID,2026-10-08,-0.08228,4,INITIATE,-0.08478,PHOENIXLTD.NS
