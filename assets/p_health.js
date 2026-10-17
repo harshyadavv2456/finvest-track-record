@@ -1,0 +1,9 @@
+(async function () {
+const F = FV; F.layout(); const H = await F.J('data/health.json'), IDX = await F.J('data/index.json');
+F.$('#hsum').innerHTML = `<div class="card"><span class="badge b-${IDX.status || 'NONE'}">${IDX.status || 'NONE'}</span> as of ${IDX.state_as_of || '–'} · updated ${(IDX.state_last_updated || '–').replace('T', ' ').slice(0, 16)} IST. Fetch attempts: ${H.stats.attempts} (OK ${H.stats.ok}, waiting for fresh data ${H.stats.stale}, errors ${H.stats.errors}). ${H.n_events} events logged in total.</div>`;
+const x = await F.J('data/xcheck.json');
+F.$('#xc').innerHTML = x.markets.map(m => `<div class="card"><b>${m.market === 'IN' ? 'India' : 'US'}</b>: ${m.n_checked} stocks compared between Yahoo and FinVest’s own price feed over 60 days — ${m.n_with_diff} differ by more than 1%. Price cache: ${m.rows.toLocaleString()} daily bars; ${m.tickers_with_data} of ${m.tickers_requested} tickers have Yahoo data${m.n_no_data ? `; <span class="chip warn">${m.n_no_data} have none (flagged, never filled)</span>` : ''}.</div>`).join('');
+const ic = await F.J('data/index_check.json');
+F.$('#ic').innerHTML = ic.markets.map(m => `<div class="card"><b>${m.market === 'IN' ? 'India' : 'US'} indices</b> (Yahoo, adjusted): ` + m.series.map(s => `${F.esc(s.name || s.ticker)} — ${s.rows || 0} days to ${s.last || '–'}${s.missing_sessions ? ` (${s.missing_sessions} missing)` : ''}`).join(' · ') + `. Cross-check: ` + m.pairs.map(p => `${F.esc(p.a)} vs ${F.esc(p.b)} correlation ${p.corr_daily_returns != null ? p.corr_daily_returns.toFixed(3) : 'n/a'} ${p.ok ? '✓' : '⚠'}`).join(', ') + '.</div>').join('');
+F.dataTable(F.$('#hlog'), [{k: 'ts_ist', t: 'Time (IST)', l: 1}, {k: 'event', t: 'Event', l: 1}, {k: 'detail', t: 'Detail', l: 1}], H.events.slice().reverse().map(e => ({ts_ist: e.ts_ist.replace('T', ' ').slice(0, 19), event: e.event, detail: e.detail})), 'health_log');
+})();

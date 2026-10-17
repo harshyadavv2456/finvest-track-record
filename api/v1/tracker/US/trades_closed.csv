@@ -1,0 +1,5 @@
+# For educational and research purposes only. Not investment advice. Research/educational track record of a quantitative model. Not investment advice. Not a SEBI-registered research analyst or adviser. Past performance does not guarantee future returns.
+# These long-signal analyses are model outputs shown for testing and educational purposes only. Not investment advice, not a recommendation to buy or sell.
+asset_regime,conviction,entry_asof,entry_kind,entry_price,entry_session,exit_kind,exit_price,exit_price_carried,exit_reason,exit_session,gross,hold_sessions,intent,net,ticker
+distribution,0.604222,2026-10-08,open,374.119995,2026-10-08,open,360.570007,False,AVOID,2026-10-15,-0.036218,5,INITIATE,-0.036718,TSLA
+markup,0.628042,2026-10-13,open,401.970001,2026-10-13,open,395.589996,False,AVOID,2026-10-15,-0.015872,2,INITIATE,-0.016372,ADI
