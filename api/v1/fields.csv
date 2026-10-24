@@ -1,0 +1,62 @@
+# For educational and research purposes only. Not investment advice. Research/educational track record of a quantitative model. Not investment advice. Not a SEBI-registered research analyst or adviser. Past performance does not guarantee future returns.
+field,type,unit,description,where
+disclaimer,string,,Exact disclaimer: research/educational track record of a quantitative model; not investment advice; not a SEBI-registered research analyst or adviser; past performance does not guarantee future returns.,every JSON file
+api_version,string,,Major API version (v1). Additions are backwards-compatible within v1.,every JSON file
+schema_version,string,,Schema revision of the files (1.0).,every JSON file
+dataset,string,,Name of the dataset in the file.,every JSON file
+source,string,,"Where the values come from: finvest-api (FinVest public API), tracker (computed here), finvest-api via tracker snapshot.",every JSON file
+attribution,string,,Required attribution text.,every JSON file
+generated_at_ist,datetime,IST (+05:30),When this file was generated.,every JSON file
+data,any,,The payload.,every JSON file
+ticker,string,,Yahoo-style symbol as used by FinVest (India ends .NS/.BO).,"latest, signals, ticker"
+name,string|null,,Company name (FinVest screener).,"latest, ticker"
+sector,string|null,,Sector (FinVest screener).,"latest, ticker"
+intent,enum,,"Model view: INITIATE, ADD (together ""long signals""), HOLD, REDUCE, EXIT, AVOID. A statistical label of a model, not a recommendation.","latest, signals"
+group,enum,,"long_signal (INITIATE/ADD), hold, avoid, reduce_exit (REDUCE/EXIT).",latest
+conviction,number,0-1,Model's confidence in its own view. Not a probability of profit.,"latest, signals"
+conviction_pct,number,percent 0-100,conviction x 100 as published by FinVest.,"latest, signals"
+return_p10,number,fraction,Model's bad-case (10th percentile) return over ~1 month. 0.05 = 5%.,"latest, signals"
+return_p50,number,fraction,Model's median return over ~1 month.,"latest, signals"
+return_p90,number,fraction,Model's good-case (90th percentile) return over ~1 month.,"latest, signals"
+cvar_95,number,fraction,Average loss in the worst 5% of the model's simulated outcomes (negative).,"latest, signals"
+asset_regime,string,,"Model's label for the stock's current mood (e.g. recovery, accumulation, distribution, markdown, panic).","latest, signals"
+market_regime,string,,Model's label for the overall market mood.,"latest, signals"
+last_price,number,local currency,"Last price in FinVest's data at generation (INR for IN, USD for US).","latest, signals"
+price_date,date,YYYY-MM-DD,Date of that last price (may lag the as_of_date).,"latest, signals"
+as_of_date,date,YYYY-MM-DD,FinVest run date stamped on the signal day.,"latest, signals"
+data_quality,string|null,,FinVest's data-quality label.,"latest, signals"
+flags,array<string>,,"Tracker flags, e.g. non_equity_id, no_price_history, no_recent_price.","latest, signals"
+rationale,string|null,,"FinVest's text for the view (codes such as momentum_20d, below_sma20 are model features).",latest
+fetched_at_ist,datetime,IST,When the tracker fetched the snapshot (immutable).,"latest, signals"
+intent_counts,object,,Number of stocks per intent in the full snapshot (including withheld long signals).,"latest, signals"
+gate.long_signals_published,boolean,,true once the day's entry price is locked and its long-signal names are published; false while they are withheld (only the count is given).,"latest, signals, index"
+gate.n_long_signals_withheld,integer,,How many long-signal names are not yet published.,"latest, signals"
+gate.unlock_ist,datetime,IST,Entry-session close + 45 minutes; long-signal names appear in the next daily publish after this time.,"latest, signals"
+gate.entry_session,date,,Session whose price is the tradeable entry for the day (India: close of the observing session; US: next open).,"latest, signals"
+variants.{tradeable|signalopen}.positions[],array<object>,,"long_positions.json: one object per long signal (INITIATE/ADD) of an UNLOCKED signal day. tradeable = entry at the first achievable price (India: signal-session close, US: next open); signalopen = theoretical open entry. tracked=false means a newer signal maps to the same entry session (reference only, not in statistics).",tracker/long_positions
+status,enum,,"open, closed, not_entered (no usable entry price) or untracked (reference only).",tracker/long_positions
+ret_gross / ret_net,number,fraction,Return since entry to the last finished session (or exit). net = gross minus the assumed round-trip cost (cost_round_trip). Open positions are marked to the last close.,tracker/long_positions
+bench_ret.{primary|secondary|tertiary},number|null,fraction,Return of each of the 3 comparison indices over exactly the same window (same entry timing).,tracker/long_positions
+excess_gross / excess_net.{primary|secondary|tertiary},number|null,fraction,Position return minus index return (percentage points as a fraction).,tracker/long_positions
+days_held,integer,sessions,Trading sessions elapsed since the entry session.,tracker/long_positions
+range.{p10|p50|p90|cvar_95},number,fraction,"The model's own ~1-month (21 sessions) bad/typical/good-case range on its signal day, to compare with the return so far (range_position).",tracker/long_positions
+series,object,,"Adjusted closes of the stock and the 3 indices from 5 sessions before the signal date (chart data; Yahoo-sourced, only with INCLUDE_YAHOO).",tracker/long_positions
+locked_days[],array<object>,,Signal days whose long names are still withheld: count (n_long_signals) and unlock_ist only.,tracker/long_positions
+moves.stock.d1|w1|m1|m3,number|null,fraction,"Stock move over 1, 5, 21, 63 sessions to the latest finished session (computed by the tracker from adjusted closes; no price series published).","ticker, stock_moves.csv"
+moves.stock.sn,number|null,fraction,Move since the close of the signal date; null until a session after it has closed.,ticker
+moves.index_returns.<primary|secondary|tertiary>,object,fraction,Same windows for the three comparison indices (India: NIFTY 500 / NIFTY 50 / NIFTY Next 50; US: SPY / QQQ / RSP).,"ticker, groups, indices"
+moves.vs_index_points,object,fraction,Stock move minus index move per window per index (0.02 = 2 percentage points).,ticker
+moves.verdict_vs_index,object,,"beat (>= +2 pts), inline (within 2 pts), lagged (rose but >= 2 pts behind), fell (fell and >= 2 pts behind), per index. Window in verdict_window.",ticker
+groups.<group>.avg_<w>,number|null,fraction,"Average stock move of the group over window w (d1, w1, m1, m3, sn).",groups
+groups.<group>.fell_<w>,number|null,share 0-1,Share of the group whose price fell.,groups
+groups.<group>.lag_<index>_<w>,number|null,share 0-1,Share that moved less than the index.,groups
+groups.<group>.worse2_<index>_<w>,number|null,share 0-1,Share that trailed the index by 2+ points.,groups
+groups.<group>.hist,array<int>,count,"Number of stocks per conviction decile (0-10%, ... 90-100%).",groups
+history.rows,array,,"Per-ticker: one row per recorded signal day: [as_of_date, intent, conviction, conviction_pct, p10, p50, p90, cvar_95, asset_regime, market_regime, last_price, price_date, data_quality, flags].",ticker
+columns/rows,array,,Columnar tables (signals/<date>/<market>.json): `columns` names the positions in each row.,signals
+fundamentals.*,mixed,various,"FinVest screener fields (pe_trailing, market_cap, roe, ret_3m, rsi14, ...; percent fields are in percent as served by FinVest).","ticker, finvest/screener"
+insider_transactions / announcements,array,,FinVest's insider filings / corporate announcements that mention the ticker (latest 25).,ticker
+tracker.variants.<tradeable|signalopen>,object,,"Tracker results: Book A (signal portfolio), Book B (daily list), KPIs, closed/open trades, signal quality, vs the three indices. Empty until the first signal day is locked.",tracker/<M>/*.json
+unlock_ist / first_results_ist,datetime,IST,When long signals become visible / first since-signal results exist.,"groups, index"
+failed_finvest_endpoints,array,,"FinVest endpoints that could not be fetched in the last run, with reason.",index
+skipped_finvest_endpoints,object,,"FinVest endpoint patterns deliberately not collected, with reason.",index

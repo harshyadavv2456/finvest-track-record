@@ -1,0 +1,17 @@
+# For educational and research purposes only. Not investment advice. Research/educational track record of a quantitative model. Not investment advice. Not a SEBI-registered research analyst or adviser. Past performance does not guarantee future returns.
+# These long-signal analyses are model outputs shown for testing and educational purposes only. Not investment advice, not a recommendation to buy or sell.
+asset_regime,conviction,entry_asof,entry_kind,entry_price,entry_session,exit_kind,exit_price,exit_price_carried,exit_reason,exit_session,gross,hold_sessions,intent,net,ticker
+recovery,0.661292,2026-09-30,close,719.400024,2026-10-01,close,726.0,False,AVOID,2026-10-05,0.009174,1,INITIATE,0.006674,CHOICEIN.NS
+recovery,0.580271,2026-09-30,close,26840.0,2026-10-01,close,25580.0,False,AVOID,2026-10-08,-0.046945,4,INITIATE,-0.049445,ABBOTINDIA.NS
+accumulation,0.596388,2026-09-30,close,399.299988,2026-10-01,close,378.649994,False,AVOID,2026-10-08,-0.051715,4,INITIATE,-0.054215,CHAMBLFERT.NS
+recovery,0.591473,2026-09-30,close,1930.0,2026-10-01,close,1771.199951,False,AVOID,2026-10-08,-0.08228,4,INITIATE,-0.08478,PHOENIXLTD.NS
+markup,0.647282,2026-10-08,close,1179.800049,2026-10-08,close,1201.099976,False,AVOID,2026-10-12,0.018054,2,INITIATE,0.015554,ACE.NS
+recovery,0.618056,2026-10-08,close,1997.900024,2026-10-08,close,2069.199951,False,AVOID,2026-10-12,0.035687,2,INITIATE,0.033187,LAURUSLABS.NS
+recovery,0.60058,2026-10-09,close,9426.0,2026-10-12,close,9023.0,False,AVOID,2026-10-14,-0.042754,2,INITIATE,-0.045254,DIVISLAB.NS
+recovery,0.57544,2026-10-09,close,1618.300049,2026-10-12,close,1599.599976,False,AVOID,2026-10-15,-0.011555,3,INITIATE,-0.014055,DEEPAKNTR.NS
+recovery,0.613698,2026-10-05,close,31500.0,2026-10-05,close,28730.0,False,AVOID,2026-10-19,-0.087937,10,INITIATE,-0.090437,POWERINDIA.NS
+recovery,0.616498,2026-10-05,close,439.600006,2026-10-05,close,420.549988,False,AVOID,2026-10-19,-0.043335,10,INITIATE,-0.045835,VBL.NS
+distribution,0.572272,2026-10-08,close,1737.400024,2026-10-08,close,1683.800049,False,AVOID,2026-10-19,-0.030851,7,INITIATE,-0.033351,NUVAMA.NS
+recovery,0.640858,2026-10-15,close,1188.400024,2026-10-16,close,1196.099976,False,AVOID,2026-10-22,0.006479,3,INITIATE,0.003979,SOBHA.NS
+recovery,0.578417,2026-10-17,close,1550.599976,2026-10-19,close,1487.400024,False,AVOID,2026-10-22,-0.040758,2,INITIATE,-0.043258,DEEPAKNTR.NS
+recovery,0.584055,2026-10-15,close,2472.100098,2026-10-16,close,2330.600098,True,AVOID,2026-10-23,-0.057239,4,INITIATE,-0.059739,SRF.NS
