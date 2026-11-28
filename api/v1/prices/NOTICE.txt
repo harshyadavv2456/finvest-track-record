@@ -1,0 +1,5 @@
+Yahoo Finance-sourced price data, provided for internal/educational use only; Yahoo's redistribution terms may apply. No warranty; adjusted for splits and dividends as served by Yahoo.
+
+For educational and research purposes only. Not investment advice. Research/educational track record of a quantitative model. Not investment advice. Not a SEBI-registered research analyst or adviser. Past performance does not guarantee future returns.
+
+Remove the whole folder by setting INCLUDE_YAHOO=0 in config.py / the environment and rebuilding.
